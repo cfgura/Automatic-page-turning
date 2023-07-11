@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>屏幕向左滑动</title>
+</head>
+<body>
+  <script>
+    // 获取屏幕宽度和高度
+    var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    // 创建Touch事件，模拟滑动
+    var touch = new Touch({
+      identifier: Date.now(),
+      target: document.documentElement,
+      clientX: screenWidth,
+      clientY: screenHeight / 2,
+      radiusX: 2.5,
+      radiusY: 2.5,
+      rotationAngle: 10,
+      force: 0.5
+    });
+
+    var touchList = new TouchList();
+    touchList.append(touch);
+
+    // 创建Touch事件触摸起始点
+    var touchEvent = new TouchEvent('touchstart', {
+      touches: touchList,
+      targetTouches: touchList,
+      changedTouches: touchList
+    });
+
+    // 模拟滑动开始
+    document.documentElement.dispatchEvent(touchEvent);
+
+    // 设置滑动目标点
+    touch.clientX = 0;
+
+    // 创建Touch事件触摸移动点
+    var touchMoveEvent = new TouchEvent('touchmove', {
+      touches: touchList,
+      targetTouches: touchList,
+      changedTouches: touchList
+    });
+
+    // 模拟滑动中
+    document.documentElement.dispatchEvent(touchMoveEvent);
+
+    // 创建Touch事件触摸结束点
+    var touchEndEvent = new TouchEvent('touchend', {
+      touches: touchList,
+      targetTouches: touchList,
+      changedTouches: touchList
+    });
+
+    // 模拟滑动结束
+    document.documentElement.dispatchEvent(touchEndEvent);
+  </script>
+</body>
+</html>
